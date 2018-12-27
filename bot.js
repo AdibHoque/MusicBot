@@ -66,20 +66,20 @@ client.on('message', async msg => { // eslint-disable-line
         const voiceChannel = msg.member.voiceChannel;
         if(!voiceChannel){
             var embedplay1 = new Discord.RichEmbed()
-                .setTitle(`**Please Connect To A Voice Channel To Play Something!**`)
+                .setTitle(`Please Connect To A Voice Channel To Play Something!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedplay1);
         }
         const permissions = voiceChannel.permissionsFor(msg.client.user);
         if(!permissions.has('CONNECT')){
             var embedplay2 = new Discord.RichEmbed()
-                .setTitle(`**I lack the right CONNECT to connect in these Voice Channel!**`)
+                .setTitle(`I lack the right CONNECT to connect in these Voice Channel!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedplay2);
         }
         if (!permissions.has('SPEAK')){
             var embedplay3 = new Discord.RichEmbed()
-                .setTitle(`**I do not have the right to SPEAK to connect in these Voice Channel!**`)
+                .setTitle(`I do not have the right to SPEAK to connect in these Voice Channel!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedplay3);
         }
@@ -103,11 +103,11 @@ client.on('message', async msg => { // eslint-disable-line
                     var videos = await youtube.searchVideos(searchString, 10);
                     let index = 0;
                     var embedqueue5 = new Discord.RichEmbed()
-                        .setTitle(`__**Song Play By MultiVerse Official**__`)
+                        .setTitle(`__Song Play By MultiVerse Official__`)
                         .setDescription(`
-${videos.map(video2 => `**${++index}-** ${video2.title}`).join('\n')}
+${videos.map(video2 => `${++index}- ${video2.title}`).join('\n')}
 
-**Please enter a number between 1-10 on,a Song select!**`)
+Please enter a number between 1-10 on,a Song select!`)
                 .setColor([226, 50, 41])
                     msg.channel.sendEmbed(embedqueue5);
                     
@@ -140,7 +140,7 @@ ${videos.map(video2 => `**${++index}-** ${video2.title}`).join('\n')}
     } else if(msg.content.startsWith(`${PREFIX}skip`)) {
         if(!msg.member.voiceChannel){
            var embedskip1 = new Discord.RichEmbed()
-                .setTitle(`**You are in not in the Voice Channel!**`)
+                .setTitle(`You are in not in the Voice Channel!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedskip1); 
         }
@@ -166,7 +166,7 @@ ${videos.map(video2 => `**${++index}-** ${video2.title}`).join('\n')}
         }
         if(!serverQueue){
             var embedstop2 = new Discord.RichEmbed()
-                .setTitle(`**There is nothing to stop!**`)
+                .setTitle(`There is nothing to stop!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedstop2);
         }
@@ -180,12 +180,12 @@ ${videos.map(video2 => `**${++index}-** ${video2.title}`).join('\n')}
     else if(msg.content.startsWith(`${PREFIX}song`)){
         if(!serverQueue){
             var embedsong1 = new Discord.RichEmbed()
-                .setTitle(`**It does nothing at the moment!**`)
+                .setTitle(`It does nothing at the moment!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedsong1);
                  }
             var embedsong2 = new Discord.RichEmbed()
-                .setTitle(`__**${serverQueue.songs[0].title}**__`)
+                .setTitle(`${serverQueue.songs[0].title}`)
                 .setThumbnail(serverQueue.songs[0].thumbnail)
                 .setDescription(`
 Von: ${serverQueue.songs[0].channel}
@@ -198,7 +198,7 @@ Link: ${serverQueue.songs[0].url}
     else if(msg.content.startsWith(`${PREFIX}volume`)){
         if(!serverQueue){
             var embedvolume1 = new Discord.RichEmbed()
-                .setTitle(`**It does nothing at the moment!**`)
+                .setTitle(`It does nothing at the moment!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedvolume1);}
         if(!args[1]){
@@ -213,7 +213,7 @@ Link: ${serverQueue.songs[0].url}
         serverQueue.connection.dispatcher.setVolume(args[1] / 2000);
         serverQueue.mute = false;
         var embedvolume3 = new Discord.RichEmbed()
-                .setTitle(`**The volume is on ${args[1]} set**`)
+                .setTitle(`The volume is on ${args[1]} set`)
                 .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedvolume3);
         } else{
@@ -226,14 +226,14 @@ Link: ${serverQueue.songs[0].url}
     else if(msg.content.startsWith(`${PREFIX}queue`)){
         if(!serverQueue){
             var embedqueue1 = new Discord.RichEmbed()
-                .setTitle(`**It does nothing at the moment!**`)
+                .setTitle(`It does nothing at the moment!`)
                 .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedqueue1);
         }
         var embedqueue2 = new Discord.RichEmbed()
-                .setTitle(`__**Song Queue**__`)
+                .setTitle(`Song Queue`)
                 .setDescription(`
-${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
+${serverQueue.songs.map(song => `- ${song.title}`).join('\n')}
 
 **Playing:** ${serverQueue.songs[0].title}`)
                 .setColor([226, 50, 41])
@@ -244,12 +244,12 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
         serverQueue.playing = false;
         serverQueue.connection.dispatcher.pause();
         var embedpause1 = new Discord.RichEmbed()
-                .setTitle(`**The song is stopped!**`)
+                .setTitle(`The song is stopped!`)
                 .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedpause1);
         }
         var embedpause2 = new Discord.RichEmbed()
-            .setTitle(`**It does nothing at the moment!**`)
+            .setTitle(`It does nothing at the moment!`)
             .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedpause2);
     }
@@ -258,25 +258,25 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
         serverQueue.playing = true;
         serverQueue.connection.dispatcher.resume();
         var embedresume1 = new Discord.RichEmbed()
-                .setTitle(`**The song keeps playing on!**`)
+                .setTitle(`The song keeps playing on!`)
                 .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedresume1);           
         }
         var embedresume2 = new Discord.RichEmbed()
-            .setTitle(`**It does nothing at the moment!**`)
+            .setTitle(`It does nothing at the moment!`)
             .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedresume2);
     }   
     else if(msg.content.startsWith(`${PREFIX}mutemusic`)){
         if(!serverQueue){
         var embedmute1 = new Discord.RichEmbed()
-                .setTitle(`**It does nothing at the moment!**`)
+                .setTitle(`It does nothing at the moment!`)
                 .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedmute1);     
         }
         if(serverQueue.mute){
         var embedmute2 = new Discord.RichEmbed()
-                .setTitle(`**The music Bot is already muted!**`)
+                .setTitle(`The music Bot is already muted!`)
                 .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedmute2);     
         }
@@ -284,7 +284,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
             serverQueue.mute = true;
             serverQueue.connection.dispatcher.setVolume(0 / 2000);
             var embedmute3 = new Discord.RichEmbed()
-                .setTitle(`**The music Bot was muted!**`)
+                .setTitle(`The music Bot was muted!`)
                 .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedmute3);
         }
@@ -292,13 +292,13 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
     else if(msg.content.startsWith(`${PREFIX}unmutemusic`)){
         if(!serverQueue){
             var embedunmute1 = new Discord.RichEmbed()
-                .setTitle(`**It does nothing at the moment!**`)
+                .setTitle(`It does nothing at the moment!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedunmute1);     
         }
         if(!serverQueue.mute){
             var embedunmute2 = new Discord.RichEmbed()
-                .setTitle(`**The Music Bot is already unmuted!**`)
+                .setTitle(`The Music Bot is already unmuted!`)
                 .setColor([226, 50, 41])
             return msg.channel.sendEmbed(embedunmute2);     
         }   
@@ -306,14 +306,14 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
             serverQueue.mute = false;
             serverQueue.connection.dispatcher.setVolume(serverQueue.volume / 2000);
             var embedunmute3 = new Discord.RichEmbed()
-                .setTitle(`**The Music Bot has been unmuted!**`)
+                .setTitle(`The Music Bot has been unmuted!`)
                 .setColor([226, 50, 41])
         return msg.channel.sendEmbed(embedunmute3);
         }
     }
     else if(msg.content.startsWith(`${PREFIX}helpmusic`)){
         var embedhelp = new Discord.RichEmbed()
-            .setTitle(`__**MultiverseMusic Commands**__`)
+            .setTitle(`MultiverseMusic Commands`)
             .addField("mv!play [YouTube Link/Playlist]", "Usage: `mv!play` Description: To play See The YouTube Linke And playlist.", false)
             .addField("mv!play [Suchbegriff(e)]", "Usage: `mv!play`<song name> Description: To play Music.", false)
             .addField("mv!skip", "Usage: `mv!skip` Description: To skip music.", false)
@@ -409,7 +409,7 @@ function play(guild, song){
     dispatcher.setVolume(serverQueue.volume / 2000);
     
     var embedfunction1 = new Discord.RichEmbed()
-                .setTitle(`** Begin ${song.title} to play.** __Note:__ **You should use mv!volume 2000 for better sound**`)
+                .setTitle(`Begin ${song.title} to play. __Note:__ You should use mv!volume 2000 for better sound`)
                 .setColor([226, 50, 41])
             return serverQueue.textChannel.sendEmbed(embedfunction1);
 }
