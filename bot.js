@@ -48,23 +48,6 @@ client.on('guildMemberAdd', member => {
   });
 });
 
-client.on('guildMemberRemove', member => {
-  member.guild.fetchInvites().then(guildInvites => {
-
-    const ei = invites[member.guild.id];
-
-    invites[member.guild.id] = guildInvites;
-
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-
-    const inviter = client.users.get(invite.inviter.id);
-
-    const logChannel = member.guild.channels.find(channel => channel.name == "★彡-welcome-彡★");
-
-    logChannel.send(`@${member.user.id} **left**; Invited By **${inviter.username}** (**${invite.uses}** Invites)`);
-  });
-});
-
 client.on('disconnect', () => console.log('I disconnected!'));
 
 client.on('reconnecting', () => console.log('I am disconnecting!'));
