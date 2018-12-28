@@ -43,7 +43,23 @@ client.on('guildMemberAdd', member => {
     const inviter = client.users.get(invite.inviter.id);
 
     const logChannel = member.guild.channels.find(channel => channel.name == "★彡-welcome-彡★");
+   
+    if (invite.uses === 20) {
+            return inviter.addRole(member.guild.roles.find(role => role.name === "Inviter I"));
+    }
+   
+    if (invite.uses === 30) {
+            return inviter.addRole(member.guild.roles.find(role => role.name === "Inviter II"));
+    }    
+   
+    if (invite.uses === 50) {
+            return inviter.addRole(member.guild.roles.find(role => role.name === "Inviter III"));
+    }
 
+    if (invite.uses === 80) {
+            return inviter.addRole(member.guild.roles.find(role => role.name === "Inviter IV"));
+    }
+   
     logChannel.send(`<@${member.user.id}> **joined**; Invited By **${inviter.username}** (**${invite.uses}** Invites)`);
   });
 });
