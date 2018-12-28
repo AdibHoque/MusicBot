@@ -44,7 +44,7 @@ client.on('guildMemberAdd', member => {
 
     const logChannel = member.guild.channels.find(channel => channel.name == "★彡-welcome-彡★");
 
-    logChannel.send(`@${member.username} **joined**; Invited By **${inviter.username}** (**${invite.uses}** Invites)`);
+    logChannel.send(`<@${member.user.id}> **joined**; Invited By **${inviter.username}** (**${invite.uses}** Invites)`);
   });
 });
 
