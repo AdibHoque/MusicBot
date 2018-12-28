@@ -4,6 +4,10 @@ const config = require("./config.json");
 const YouTube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
 
+const invites = {};
+
+const wait = require('util').promisify(setTimeout);
+
 const client = new Client({ disableEveryone: true});
 
 const youtube = new YouTube(config.GOOGLE_API_KEY);
@@ -15,7 +19,34 @@ client.on('warn', console.warn);
 
 client.on('error', console.error);
 
-client.on('ready', () => console.log('I am ready!'));
+client.on('ready', () => {
+ console.log('Alive')
+  wait(1000);
+  
+  client.guilds.forEach(g => {
+    g.fetchInvites().then(guildInvites => {
+      invites[g.id] = guildInvites;
+    });
+  });
+});
+
+
+client.on('guildMemberAdd', member => {
+  member.guild.fetchInvites().then(guildInvites => {
+
+    const ei = invites[member.guild.id];
+
+    invites[member.guild.id] = guildInvites;
+
+    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
+
+    const inviter = client.users.get(invite.inviter.id);
+
+    const logChannel = member.guild.channels.find(channel => channel.name == "★彡-welcome-彡★");
+
+    logChannel.send(`@${member.username} **joined**; Invited By **${inviter.username}** (**${invite.uses}** Invites)`);
+  });
+});
 
 client.on('disconnect', () => console.log('I disconnected!'));
 
