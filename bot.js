@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { Client, Util} = require('discord.js');
+const {Client, Util} = require('discord.js');
 const invites = {};
 
 const wait = require('util').promisify(setTimeout);
@@ -55,8 +55,12 @@ client.on('message', async msg => { // eslint-disable-line
             .addField("mv!play [Suchbegriff(e)]", "Usage: `mv!play`<song name> Description: To play Music.", false)
             .addField("mv!skip", "Usage: `mv!skip` Description: To skip music.", false)
             .addField("mv!stop", "Usage: `mv!stop` Description: To Bot disconnected.", false)
-            .addField("mv!song", "Usage: `mv!song` Description: To Check The Current playing song.", false)
+            .addField("mv!np", "Usage: `mv!np` Description: To Check The Current playing song.", false)
             .addField("mv!queue", "Usage: `mv!queue` Description: To Check The Queue List.", false)
+            .addField("mv!volume", "Usage: `mv!volume` Description: To See Volume.", false)
+            .addField("mv!volume [Wert]", "Usage: `mv!volume` Description: To Changes the volume level to the specified value.", false)
+            .addField("mv!pause", "Usage: `mv!pause` Description: To pause The Current Playing Song.", false)
+            .addField("mv!resume", "Usage: `mv!resume` Description: To Resume The Paused Song.", false)
             .setColor([226, 50, 41])
             .setThumbnail(client.user.avatarURL)
             return msg.channel.sendEmbed(embedhelp);
