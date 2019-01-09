@@ -4,6 +4,8 @@ const invites = {};
 
 const wait = require('util').promisify(setTimeout);
 
+const config = require('./config.json');
+
 const client = new Client({ disableEveryone: true});
 
 const PREFIX = config.prefix;
