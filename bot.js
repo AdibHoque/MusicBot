@@ -81,6 +81,5 @@ client.on('message', async msg => { // eslint-disable-line
     }    
     return undefined;
 });
-});
 
 client.login(process.env.BOT_TOKEN);
