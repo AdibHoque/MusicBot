@@ -2,17 +2,20 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "mywelcomerbot",
-  "version": "0.0.2",
+  "name": "hello-express",
+  "version": "0.0.1",
   "description": "A simple Node app built on Express, instantly up and running.",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
+    "express": "^4.16.4",
     "discord.js": "*",
     "canvas": "*",
     "snekfetch": "*",
+    "request": "^2.86.0",
+    "dotenv": "^6.0.0"
   },
   "engines": {
     "node": "8.x"
@@ -20,7 +23,7 @@
   "license": "MIT",
   "keywords": [
     "node",
-    "welcomer",
-    "darklegend"
+    "glitch",
+    "express"
   ]
 }
