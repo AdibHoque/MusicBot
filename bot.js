@@ -57,7 +57,9 @@ client.on('guildMemberAdd', async member => {
 
 	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
 });
-	
+
+client.login(process.env.BOT_TOKEN);
+
 client.on('message', async msg => { // eslint-disable-line
     if (msg.author.bot) return undefined;
     const args = msg.content.split(' ');
@@ -78,8 +80,9 @@ client.on('message', async msg => { // eslint-disable-line
             .setColor([226, 50, 41])
             .setThumbnail(client.user.avatarURL)
             return msg.channel.sendEmbed(embedhelp);
-    }    
+    }
+    if (msg.content.startsWith(`mv!jointest`)){
+        client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
+    }
     return undefined;
 });
-
-client.login(process.env.BOT_TOKEN);
