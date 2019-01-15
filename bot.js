@@ -1,9 +1,14 @@
 const Discord = require('discord.js');
-const Canvas = require('canvas');
-const snekfetch = require('snekfetch');
 const {Client, Util} = require('discord.js');
+const invites = {};
+
 const wait = require('util').promisify(setTimeout);
-const client = new Discord.Client();
+
+const config = require('./config.json');
+
+const client = new Client({ disableEveryone: true});
+
+const PREFIX = config.prefix;
 
 client.on('warn', console.warn);
 
@@ -12,63 +17,38 @@ client.on('error', console.error);
 client.on('ready', () => {
  console.log('Alive')
   wait(1000);
+  
+  client.guilds.forEach(g => {
+    g.fetchInvites().then(guildInvites => {
+      invites[g.id] = guildInvites;
+    });
+  });
 });
 
-const applyText = (canvas, text) => {
-	const ctx = canvas.getContext('2d');
 
-	// Declare a base size of the font
-	let fontSize = 70;
+client.on('guildMemberAdd', member => {
+  member.guild.fetchInvites().then(guildInvites => {
 
-	do {
-		// Assign the font to the context and decrement it so it can be measured again
-		ctx.font = `${fontSize -= 10}px sans-serif`;
-		// Compare pixel width of the text to the canvas minus the approximate avatar size
-	} while (ctx.measureText(text).width > canvas.width - 300);
+    const ei = invites[member.guild.id];
 
-	// Return the result to use in the actual canvas
-	return ctx.font;
-};
-client.on('guildMemberAdd', async member => {
-	const channel = member.guild.channels.find(ch => ch.name === '★彡-welcome-彡★');
-	if (!channel) return;
+    invites[member.guild.id] = guildInvites;
 
-	const canvas = Canvas.createCanvas(700, 250);
-	const ctx = canvas.getContext('2d');
+    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
 
-	const background = await Canvas.loadImage('https://images.wallpaperscraft.com/image/black_background_red_color_paint_explosion_burst_9844_1920x1080.jpg');
-	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+    const inviter = client.users.get(invite.inviter.id);
 
-	ctx.strokeStyle = '#74037b';
-	ctx.strokeRect(0, 0, canvas.width, canvas.height);
-
-	// Slightly smaller text placed above the member's display name
-	ctx.font = '28px sans-serif';
-	ctx.fillStyle = '#df009d';
-	ctx.fillText('Welcome to the server,', canvas.width / 2.5, canvas.height / 3.5);
-  
-	// Add an exclamation point here and below
-	ctx.font = applyText(canvas, `${member.displayName}!`);
-	ctx.fillStyle = '#21d4c7';
-	ctx.fillText(`${member.displayName}!`, canvas.width / 2.5, canvas.height / 1.8);
-
-	ctx.beginPath();
-	ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
-	ctx.closePath();
-	ctx.clip();
-
-	const { body: buffer } = await snekfetch.get(member.user.displayAvatarURL);
-	const avatar = await Canvas.loadImage(buffer);
-	ctx.drawImage(avatar, 25, 25, 200, 200);
-
-	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
+    const logChannel = member.guild.channels.find(channel => channel.name == "★彡-welcome-彡★");
+      
+    logChannel.send(`<@${member.user.id}> **joined**; Invited By **${inviter.username}** (**${invite.uses}** Invites)`);
+  });
 });
 
 client.on('message', async msg => { // eslint-disable-line
     if (msg.author.bot) return undefined;
+    if (!msg.content.startsWith(PREFIX)) return undefined;
     const args = msg.content.split(' ');
      
-    if(msg.content.startsWith(`mv!helpmusic`)){
+    if(msg.content.startsWith(`${PREFIX}helpmusic`)){
         var embedhelp = new Discord.RichEmbed()
             .setTitle(`MultiverseMusic Commands`)
             .addField("mv!play [YouTube Link/Playlist]", "Usage: `mv!play` Description: To play See The YouTube Linke And playlist.", false)
@@ -85,10 +65,8 @@ client.on('message', async msg => { // eslint-disable-line
             .setThumbnail(client.user.avatarURL)
             return msg.channel.sendEmbed(embedhelp);
     }
-    if (msg.content.startsWith(`mv!jointest`)){
-        client.emit('guildMemberAdd', msg.member || await msg.guild.fetchMember(msg.author));
-    }
     return undefined;
 });
 
+ 
 client.login(process.env.BOT_TOKEN);
