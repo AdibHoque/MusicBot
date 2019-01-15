@@ -1,12 +1,29 @@
 {
-  "name": "MusicWelcomer",
-  "description": "A MusicBot for Discord and for welcoming",
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "hello-express",
   "version": "0.0.1",
-  "main": "bot.js",
+  "description": "A simple Node app built on Express, instantly up and running.",
+  "main": "server.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "discord.js": "11.3.2",
-  }
+    "express": "^4.16.4",
+    "discord.js": "*",
+    "canvas": "*",
+    "snekfetch": "*",
+    "request": "^2.86.0",
+    "dotenv": "^6.0.0"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
 }
