@@ -1,7 +1,7 @@
 {
-  "name": "MusikBot",
-  "description": "A MusicBot for Discord",
-  "version": "0.0.0",
+  "name": "MusicWelcomer",
+  "description": "A MusicBot for Discord and for welcoming",
+  "version": "0.0.1",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
