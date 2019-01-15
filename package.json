@@ -10,12 +10,9 @@
     "start": "node bot.js"
   },
   "dependencies": {
-    "express": "^4.16.4",
     "discord.js": "*",
     "canvas": "*",
     "snekfetch": "*",
-    "request": "^2.86.0",
-    "dotenv": "^6.0.0"
   },
   "engines": {
     "node": "8.x"
