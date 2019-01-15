@@ -60,7 +60,6 @@ client.on('guildMemberAdd', async member => {
 	
 client.on('message', async msg => { // eslint-disable-line
     if (msg.author.bot) return undefined;
-    if (!msg.content.startsWith(PREFIX)) return undefined;
     const args = msg.content.split(' ');
      
     if(msg.content.startsWith(`mv!helpmusic`)){
