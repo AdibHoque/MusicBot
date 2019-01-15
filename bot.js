@@ -56,7 +56,32 @@ client.on('guildMemberAdd', async member => {
 	ctx.drawImage(avatar, 25, 25, 200, 200);
 
 	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
-
+});
+	
+client.on('message', async msg => { // eslint-disable-line
+    if (msg.author.bot) return undefined;
+    if (!msg.content.startsWith(PREFIX)) return undefined;
+    const args = msg.content.split(' ');
+     
+    if(msg.content.startsWith(`${PREFIX}helpmusic`)){
+        var embedhelp = new Discord.RichEmbed()
+            .setTitle(`MultiverseMusic Commands`)
+            .addField("mv!play [YouTube Link/Playlist]", "Usage: `mv!play` Description: To play See The YouTube Linke And playlist.", false)
+            .addField("mv!play [Suchbegriff(e)]", "Usage: `mv!play`<song name> Description: To play Music.", false)
+            .addField("mv!skip", "Usage: `mv!skip` Description: To skip music.", false)
+            .addField("mv!stop", "Usage: `mv!stop` Description: To Bot disconnected.", false)
+            .addField("mv!np", "Usage: `mv!np` Description: To Check The Current playing song.", false)
+            .addField("mv!queue", "Usage: `mv!queue` Description: To Check The Queue List.", false)
+            .addField("mv!volume", "Usage: `mv!volume` Description: To See Volume.", false)
+            .addField("mv!volume [Wert]", "Usage: `mv!volume` Description: To Changes the volume level to the specified value.", false)
+            .addField("mv!pause", "Usage: `mv!pause` Description: To pause The Current Playing Song.", false)
+            .addField("mv!resume", "Usage: `mv!resume` Description: To Resume The Paused Song.", false)
+            .setColor([226, 50, 41])
+            .setThumbnail(client.user.avatarURL)
+            return msg.channel.sendEmbed(embedhelp);
+    }
+    return undefined;
+});
 });
 
 client.login(process.env.BOT_TOKEN);
