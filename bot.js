@@ -1,32 +1,12 @@
 const Discord = require('discord.js');
-const {Client, Util} = require('discord.js');
 const Canvas = require('canvas');
 const snekfetch = require('snekfetch');
-const invites = {};
 
-const wait = require('util').promisify(setTimeout);
+const client = new Discord.Client();
 
-const config = require('./config.json');
-
-const client = new Client({ disableEveryone: true});
-
-const PREFIX = config.prefix;
-
-client.on('warn', console.warn);
-
-client.on('error', console.error);
-
-client.on('ready', () => {
- console.log('Alive')
-  wait(1000);
-  
-  client.guilds.forEach(g => {
-    g.fetchInvites().then(guildInvites => {
-      invites[g.id] = guildInvites;
-    });
-  });
+client.once('ready', () => {
+	console.log('Ready!');
 });
-
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 
@@ -42,24 +22,8 @@ const applyText = (canvas, text) => {
 	// Return the result to use in the actual canvas
 	return ctx.font;
 };
-
-
-client.on('guildMemberAdd', member => {
-  member.guild.fetchInvites().then(guildInvites => {
-
-    const ei = invites[member.guild.id];
-
-    invites[member.guild.id] = guildInvites;
-
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-
-    const inviter = client.users.get(invite.inviter.id);
-
-    const logChannel = member.guild.channels.find(channel => channel.name == "★彡-welcome-彡★");
-      
-    logChannel.send(`<@${member.user.id}> **joined**; Invited By **${inviter.username}** (**${invite.uses}** Invites)`);
-  });
- 	const channel = member.guild.channels.find(ch => ch.name === '★彡-welcome-彡★');
+client.on('guildMemberAdd', async member => {
+	const channel = member.guild.channels.find(ch => ch.name === '★彡-welcome-彡★');
 	if (!channel) return;
 
 	const canvas = Canvas.createCanvas(700, 250);
@@ -91,6 +55,7 @@ client.on('guildMemberAdd', member => {
 	ctx.drawImage(avatar, 25, 25, 200, 200);
 
 	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
+
 });
 
 client.on('message', async msg => { // eslint-disable-line
