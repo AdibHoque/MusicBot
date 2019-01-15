@@ -6,6 +6,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
  console.log('Alive');
+});
 	
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
