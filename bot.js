@@ -4,9 +4,10 @@ const snekfetch = require('snekfetch');
 
 const client = new Discord.Client();
 
-client.once('ready', () => {
-	console.log('Ready!');
-});
+client.on('ready', () => {
+ console.log('Alive')
+  wait(1000);
+	
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 
