@@ -82,7 +82,7 @@ client.on('message', async msg => { // eslint-disable-line
             return msg.channel.sendEmbed(embedhelp);
     }
     if (msg.content.startsWith(`mv!jointest`)){
-        client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
+        client.emit('guildMemberAdd', msg.member || await msg.guild.fetchMember(msg.author));
     }
     return undefined;
 });
