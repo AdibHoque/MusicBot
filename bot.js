@@ -64,8 +64,6 @@ client.on('guildMemberAdd', async member => {
 	const attachment = new Discord.Attachment(canvas.toBuffer(), 'welcome-image.png');
 });
 
-client.login(process.env.BOT_TOKEN);
-
 client.on('message', async msg => { // eslint-disable-line
     if (msg.author.bot) return undefined;
     const args = msg.content.split(' ');
@@ -92,3 +90,5 @@ client.on('message', async msg => { // eslint-disable-line
     }
     return undefined;
 });
+
+client.login(process.env.BOT_TOKEN);
