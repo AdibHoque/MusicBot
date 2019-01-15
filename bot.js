@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const {Client, Util} = require('discord.js');
+const Canvas = require('canvas');
+const snekfetch = require('snekfetch');
 const invites = {};
 
 const wait = require('util').promisify(setTimeout);
