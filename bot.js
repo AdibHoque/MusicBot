@@ -5,8 +5,13 @@ const {Client, Util} = require('discord.js');
 const wait = require('util').promisify(setTimeout);
 const client = new Discord.Client();
 
+client.on('warn', console.warn);
+
+client.on('error', console.error);
+
 client.on('ready', () => {
- console.log('Alive');
+ console.log('Alive')
+  wait(1000);
 });
 
 const applyText = (canvas, text) => {
