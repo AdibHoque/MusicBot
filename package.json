@@ -2,8 +2,8 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "hello-express",
-  "version": "0.0.1",
+  "name": "mywelcomerbot",
+  "version": "0.0.2",
   "description": "A simple Node app built on Express, instantly up and running.",
   "main": "bot.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "license": "MIT",
   "keywords": [
     "node",
-    "glitch",
-    "express"
+    "welcomer",
+    "darklegend"
   ]
 }
