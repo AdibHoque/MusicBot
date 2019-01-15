@@ -81,9 +81,6 @@ client.on('message', async msg => { // eslint-disable-line
             .setThumbnail(client.user.avatarURL)
             return msg.channel.sendEmbed(embedhelp);
     }
-    if (msg.content.startsWith(`mv!jointest`)){
-        client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
-    }
     return undefined;
 });
 
