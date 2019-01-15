@@ -63,7 +63,7 @@ client.on('message', async msg => { // eslint-disable-line
     if (!msg.content.startsWith(PREFIX)) return undefined;
     const args = msg.content.split(' ');
      
-    if(msg.content.startsWith(`${PREFIX}helpmusic`)){
+    if(msg.content.startsWith(`mv!helpmusic`)){
         var embedhelp = new Discord.RichEmbed()
             .setTitle(`MultiverseMusic Commands`)
             .addField("mv!play [YouTube Link/Playlist]", "Usage: `mv!play` Description: To play See The YouTube Linke And playlist.", false)
@@ -80,7 +80,7 @@ client.on('message', async msg => { // eslint-disable-line
             .setThumbnail(client.user.avatarURL)
             return msg.channel.sendEmbed(embedhelp);
     }
-    if (message.content === 'mv!jointest') {
+    if (msg.content.startsWith(`mv!jointest`)){
         client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
     }
     return undefined;
